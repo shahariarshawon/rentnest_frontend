@@ -9,13 +9,14 @@ import {
   Menu,
   X,
   LogOut,
-  User,
   LayoutDashboard,
   Home,
   Compass,
   FileText,
   Building,
   Shield,
+  CreditCard,
+  Users,
 } from "lucide-react";
 import { toast } from "sonner";
 
@@ -83,21 +84,21 @@ export function Navbar() {
                 className="flex items-center gap-1.5 rounded-lg px-3 py-2 text-sm font-medium text-neutral-700 hover:bg-neutral-100 hover:text-neutral-900 dark:text-neutral-300 dark:hover:bg-neutral-800 dark:hover:text-neutral-100"
               >
                 <LayoutDashboard className="h-4 w-4" />
-                My Dashboard
+                Dashboard
               </Link>
               <Link
-                href="/dashboard/tenant#requests"
+                href="/dashboard/tenant/requests"
                 className="flex items-center gap-1.5 rounded-lg px-3 py-2 text-sm font-medium text-neutral-700 hover:bg-neutral-100 hover:text-neutral-900 dark:text-neutral-300 dark:hover:bg-neutral-800 dark:hover:text-neutral-100"
               >
                 <FileText className="h-4 w-4" />
                 My Requests
               </Link>
               <Link
-                href="/dashboard/tenant#profile"
+                href="/dashboard/tenant/payments"
                 className="flex items-center gap-1.5 rounded-lg px-3 py-2 text-sm font-medium text-neutral-700 hover:bg-neutral-100 hover:text-neutral-900 dark:text-neutral-300 dark:hover:bg-neutral-800 dark:hover:text-neutral-100"
               >
-                <User className="h-4 w-4" />
-                Profile
+                <CreditCard className="h-4 w-4" />
+                Payments
               </Link>
             </>
           )}
@@ -109,40 +110,56 @@ export function Navbar() {
                 className="flex items-center gap-1.5 rounded-lg px-3 py-2 text-sm font-medium text-neutral-700 hover:bg-neutral-100 hover:text-neutral-900 dark:text-neutral-300 dark:hover:bg-neutral-800 dark:hover:text-neutral-100"
               >
                 <LayoutDashboard className="h-4 w-4" />
-                My Dashboard
+                Dashboard
               </Link>
               <Link
-                href="/dashboard/landlord#properties"
+                href="/dashboard/landlord/properties"
                 className="flex items-center gap-1.5 rounded-lg px-3 py-2 text-sm font-medium text-neutral-700 hover:bg-neutral-100 hover:text-neutral-900 dark:text-neutral-300 dark:hover:bg-neutral-800 dark:hover:text-neutral-100"
               >
                 <Building className="h-4 w-4" />
                 My Properties
               </Link>
               <Link
-                href="/dashboard/landlord#requests"
+                href="/dashboard/landlord/requests"
                 className="flex items-center gap-1.5 rounded-lg px-3 py-2 text-sm font-medium text-neutral-700 hover:bg-neutral-100 hover:text-neutral-900 dark:text-neutral-300 dark:hover:bg-neutral-800 dark:hover:text-neutral-100"
               >
                 <FileText className="h-4 w-4" />
                 Requests
               </Link>
-              <Link
-                href="/dashboard/landlord#profile"
-                className="flex items-center gap-1.5 rounded-lg px-3 py-2 text-sm font-medium text-neutral-700 hover:bg-neutral-100 hover:text-neutral-900 dark:text-neutral-300 dark:hover:bg-neutral-800 dark:hover:text-neutral-100"
-              >
-                <User className="h-4 w-4" />
-                Profile
-              </Link>
             </>
           )}
 
           {isAuthenticated && role === "ADMIN" && (
-            <Link
-              href="/dashboard/admin"
-              className="flex items-center gap-1.5 rounded-lg px-3 py-2 text-sm font-medium text-neutral-700 hover:bg-neutral-100 hover:text-neutral-900 dark:text-neutral-300 dark:hover:bg-neutral-800 dark:hover:text-neutral-100"
-            >
-              <Shield className="h-4 w-4" />
-              Admin Dashboard
-            </Link>
+            <>
+              <Link
+                href="/dashboard/admin"
+                className="flex items-center gap-1.5 rounded-lg px-3 py-2 text-sm font-medium text-neutral-700 hover:bg-neutral-100 hover:text-neutral-900 dark:text-neutral-300 dark:hover:bg-neutral-800 dark:hover:text-neutral-100"
+              >
+                <Shield className="h-4 w-4" />
+                Dashboard
+              </Link>
+              <Link
+                href="/dashboard/admin/users"
+                className="flex items-center gap-1.5 rounded-lg px-3 py-2 text-sm font-medium text-neutral-700 hover:bg-neutral-100 hover:text-neutral-900 dark:text-neutral-300 dark:hover:bg-neutral-800 dark:hover:text-neutral-100"
+              >
+                <Users className="h-4 w-4" />
+                Users
+              </Link>
+              <Link
+                href="/dashboard/admin/properties"
+                className="flex items-center gap-1.5 rounded-lg px-3 py-2 text-sm font-medium text-neutral-700 hover:bg-neutral-100 hover:text-neutral-900 dark:text-neutral-300 dark:hover:bg-neutral-800 dark:hover:text-neutral-100"
+              >
+                <Building className="h-4 w-4" />
+                Properties
+              </Link>
+              <Link
+                href="/dashboard/admin/requests"
+                className="flex items-center gap-1.5 rounded-lg px-3 py-2 text-sm font-medium text-neutral-700 hover:bg-neutral-100 hover:text-neutral-900 dark:text-neutral-300 dark:hover:bg-neutral-800 dark:hover:text-neutral-100"
+              >
+                <FileText className="h-4 w-4" />
+                Rentals
+              </Link>
+            </>
           )}
         </nav>
 
@@ -237,10 +254,10 @@ export function Navbar() {
                   className="flex items-center gap-2 rounded-lg px-3 py-2 text-base font-medium text-neutral-800 hover:bg-neutral-100 dark:text-neutral-200 dark:hover:bg-neutral-800"
                 >
                   <LayoutDashboard className="h-4 w-4" />
-                  My Dashboard
+                  Dashboard
                 </Link>
                 <Link
-                  href="/dashboard/tenant#requests"
+                  href="/dashboard/tenant/requests"
                   onClick={() => setMobileMenuOpen(false)}
                   className="flex items-center gap-2 rounded-lg px-3 py-2 text-base font-medium text-neutral-800 hover:bg-neutral-100 dark:text-neutral-200 dark:hover:bg-neutral-800"
                 >
@@ -248,12 +265,12 @@ export function Navbar() {
                   My Requests
                 </Link>
                 <Link
-                  href="/dashboard/tenant#profile"
+                  href="/dashboard/tenant/payments"
                   onClick={() => setMobileMenuOpen(false)}
                   className="flex items-center gap-2 rounded-lg px-3 py-2 text-base font-medium text-neutral-800 hover:bg-neutral-100 dark:text-neutral-200 dark:hover:bg-neutral-800"
                 >
-                  <User className="h-4 w-4" />
-                  Profile
+                  <CreditCard className="h-4 w-4" />
+                  Payments
                 </Link>
               </>
             )}
@@ -267,10 +284,10 @@ export function Navbar() {
                   className="flex items-center gap-2 rounded-lg px-3 py-2 text-base font-medium text-neutral-800 hover:bg-neutral-100 dark:text-neutral-200 dark:hover:bg-neutral-800"
                 >
                   <LayoutDashboard className="h-4 w-4" />
-                  My Dashboard
+                  Dashboard
                 </Link>
                 <Link
-                  href="/dashboard/landlord#properties"
+                  href="/dashboard/landlord/properties"
                   onClick={() => setMobileMenuOpen(false)}
                   className="flex items-center gap-2 rounded-lg px-3 py-2 text-base font-medium text-neutral-800 hover:bg-neutral-100 dark:text-neutral-200 dark:hover:bg-neutral-800"
                 >
@@ -278,34 +295,52 @@ export function Navbar() {
                   My Properties
                 </Link>
                 <Link
-                  href="/dashboard/landlord#requests"
+                  href="/dashboard/landlord/requests"
                   onClick={() => setMobileMenuOpen(false)}
                   className="flex items-center gap-2 rounded-lg px-3 py-2 text-base font-medium text-neutral-800 hover:bg-neutral-100 dark:text-neutral-200 dark:hover:bg-neutral-800"
                 >
                   <FileText className="h-4 w-4" />
                   Requests
                 </Link>
-                <Link
-                  href="/dashboard/landlord#profile"
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="flex items-center gap-2 rounded-lg px-3 py-2 text-base font-medium text-neutral-800 hover:bg-neutral-100 dark:text-neutral-200 dark:hover:bg-neutral-800"
-                >
-                  <User className="h-4 w-4" />
-                  Profile
-                </Link>
               </>
             )}
 
             {/* Mobile Admin Links */}
             {isAuthenticated && role === "ADMIN" && (
-              <Link
-                href="/dashboard/admin"
-                onClick={() => setMobileMenuOpen(false)}
-                className="flex items-center gap-2 rounded-lg px-3 py-2 text-base font-medium text-neutral-800 hover:bg-neutral-100 dark:text-neutral-200 dark:hover:bg-neutral-800"
-              >
-                <Shield className="h-4 w-4" />
-                Admin Dashboard
-              </Link>
+              <>
+                <Link
+                  href="/dashboard/admin"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="flex items-center gap-2 rounded-lg px-3 py-2 text-base font-medium text-neutral-800 hover:bg-neutral-100 dark:text-neutral-200 dark:hover:bg-neutral-800"
+                >
+                  <Shield className="h-4 w-4" />
+                  Dashboard
+                </Link>
+                <Link
+                  href="/dashboard/admin/users"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="flex items-center gap-2 rounded-lg px-3 py-2 text-base font-medium text-neutral-800 hover:bg-neutral-100 dark:text-neutral-200 dark:hover:bg-neutral-800"
+                >
+                  <Users className="h-4 w-4" />
+                  Users
+                </Link>
+                <Link
+                  href="/dashboard/admin/properties"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="flex items-center gap-2 rounded-lg px-3 py-2 text-base font-medium text-neutral-800 hover:bg-neutral-100 dark:text-neutral-200 dark:hover:bg-neutral-800"
+                >
+                  <Building className="h-4 w-4" />
+                  Properties
+                </Link>
+                <Link
+                  href="/dashboard/admin/requests"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="flex items-center gap-2 rounded-lg px-3 py-2 text-base font-medium text-neutral-800 hover:bg-neutral-100 dark:text-neutral-200 dark:hover:bg-neutral-800"
+                >
+                  <FileText className="h-4 w-4" />
+                  Rentals
+                </Link>
+              </>
             )}
 
             <div className="my-2 border-t border-neutral-200 pt-2 dark:border-neutral-800">
