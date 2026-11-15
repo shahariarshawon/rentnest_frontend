@@ -1,3 +1,7 @@
+import type { PropertyStatus } from "./api";
+
+export type { PropertyStatus };
+
 export interface Category {
   id: string;
   name: string;

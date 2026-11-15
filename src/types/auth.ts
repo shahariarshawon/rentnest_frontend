@@ -1,5 +1,7 @@
 import type { UserRole, UserStatus } from "./api";
 
+export type { UserRole, UserStatus };
+
 export interface User {
   id: string;
   name: string;
