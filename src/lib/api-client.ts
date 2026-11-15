@@ -23,8 +23,28 @@ function buildUrl(
   params?: Record<string, string | number | boolean | undefined | null>,
 ): string {
   const isAbsolute = /^https?:\/\//i.test(endpoint);
-  const base = API_BASE_URL.replace(/\/+$/, "");
-  const path = endpoint.startsWith("/") ? endpoint : `/${endpoint}`;
+
+  // In the browser, forward authenticated API calls through the BFF proxy so HttpOnly cookie is attached
+  let resolvedEndpoint = endpoint;
+  if (
+    typeof window !== "undefined" &&
+    !isAbsolute &&
+    resolvedEndpoint.startsWith("/api/") &&
+    !resolvedEndpoint.startsWith("/api/auth/") &&
+    !resolvedEndpoint.startsWith("/api/proxy/")
+  ) {
+    resolvedEndpoint = `/api/proxy${resolvedEndpoint.replace(/^\/api/, "")}`;
+  }
+
+  const base =
+    typeof window !== "undefined"
+      ? ""
+      : API_BASE_URL.replace(/\/+$/, "");
+
+  const path = resolvedEndpoint.startsWith("/")
+    ? resolvedEndpoint
+    : `/${resolvedEndpoint}`;
+
   const fullUrl = isAbsolute ? endpoint : `${base}${path}`;
 
   if (!params) {
@@ -80,7 +100,7 @@ export async function request<T = unknown>(
     requestHeaders.set("Accept", "application/json");
   }
 
-  // Authorization header
+  // Authorization header (explicit token or stored token if any)
   const authToken = token ?? getStoredToken();
   if (authToken && !requestHeaders.has("Authorization")) {
     requestHeaders.set("Authorization", `Bearer ${authToken}`);
