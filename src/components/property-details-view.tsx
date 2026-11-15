@@ -6,6 +6,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useAuthStore } from "@/hooks/use-auth";
 import type { Property } from "@/types/property";
+import { RequestRentModal } from "./request-rent-modal";
 import {
   MapPin,
   Building,
@@ -30,6 +31,7 @@ export function PropertyDetailsView({ property }: PropertyDetailsViewProps) {
   const router = useRouter();
   const { user, isAuthenticated } = useAuthStore();
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const images =
     property.images && property.images.length > 0
@@ -57,9 +59,7 @@ export function PropertyDetailsView({ property }: PropertyDetailsViewProps) {
       return;
     }
 
-    toast.success(
-      "Ready for rental application! Rental submission will be enabled in Phase 4.",
-    );
+    setIsModalOpen(true);
   };
 
   return (
@@ -302,6 +302,13 @@ export function PropertyDetailsView({ property }: PropertyDetailsViewProps) {
           </div>
         </div>
       </div>
+
+      {/* Rental Request Modal */}
+      <RequestRentModal
+        property={property}
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+      />
     </div>
   );
 }
